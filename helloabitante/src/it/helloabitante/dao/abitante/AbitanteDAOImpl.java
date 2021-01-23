@@ -42,10 +42,17 @@ public class AbitanteDAOImpl implements AbitanteDAO {
 		
 		return result;
 	}
-
+	
 	@Override
 	public int update(Abitante input) {
-		return 0;
+		if(input == null)
+			return 0;
+		List<Abitante> lista = this.list();
+		Abitante abitanteDaSostituire = this.get(input.getIdAbitante());
+		lista.remove(abitanteDaSostituire);
+		lista.add(input);
+		
+		return 1;
 		
 	}
 
