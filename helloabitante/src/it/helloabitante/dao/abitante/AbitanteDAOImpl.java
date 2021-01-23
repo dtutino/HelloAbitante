@@ -27,12 +27,12 @@ public class AbitanteDAOImpl implements AbitanteDAO {
 	}
 
 	@Override
-	public List<Abitante> list() throws Exception {
+	public List<Abitante> list() {
 		return DB_Mock.LISTA_ABITANTI;
 	}
 
 	@Override
-	public Abitante get(Long id) throws Exception {
+	public Abitante get(Long id) {
 		Abitante result = new Abitante();
 		
 		for (Abitante abitanteItem : DB_Mock.LISTA_ABITANTI) {
@@ -44,13 +44,13 @@ public class AbitanteDAOImpl implements AbitanteDAO {
 	}
 
 	@Override
-	public int update(Abitante input) throws Exception {
+	public int update(Abitante input) {
 		return 0;
 		
 	}
 
 	@Override
-	public int insert(Abitante input) throws Exception {
+	public int insert(Abitante input) {
 		if(input == null)
 			return 0;
 		
@@ -59,7 +59,7 @@ public class AbitanteDAOImpl implements AbitanteDAO {
 	}
 
 	@Override
-	public int delete(Abitante input) throws Exception {
+	public int delete(Abitante input) {
 		if (input == null)
 			return 0;
 		

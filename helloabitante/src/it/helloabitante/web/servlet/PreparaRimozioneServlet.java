@@ -13,35 +13,39 @@ import it.helloabitante.model.Abitante;
 import it.helloabitante.service.MyServiceFactory;
 import it.helloabitante.service.abitante.AbitanteService;
 
-@WebServlet("/VisualizzaDettaglioServlet")
-public class VisualizzaDettaglioServlet extends HttpServlet {
+
+@WebServlet("/PreparaRimozioneServlet")
+public class PreparaRimozioneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-    public VisualizzaDettaglioServlet() {
+       
+    
+    public PreparaRimozioneServlet() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String destinazione = null;
 		
-		String destinazione = null;
-		
-		String parametroIdDellAbitanteDiCuiVoglioIlDettaglio = request.getParameter("idDaInviareComeParametro");
+		String parametroIdDellAbitanteCheVoglioEliminare = request.getParameter("idDaInviareComeParametro");
 				
 		AbitanteService abitanteServiceInstance = MyServiceFactory.getAbitanteServiceInstance();
 			
 		
-	    Abitante result = abitanteServiceInstance.get(Long.parseLong(parametroIdDellAbitanteDiCuiVoglioIlDettaglio));
-		request.setAttribute("abitanteDaInviareAPaginaDettalio", result);
+	    Abitante result = abitanteServiceInstance.get(Long.parseLong(parametroIdDellAbitanteCheVoglioEliminare));
+		request.setAttribute("abitanteDaInviareAPaginaRimozione", result);
 		
 		
-		destinazione = "dettaglio.jsp";
+		destinazione = "rimozione.jsp";
 		
 		RequestDispatcher rd = request.getRequestDispatcher(destinazione);
 		rd.forward(request, response);
-		
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 	}
 
 }

@@ -8,7 +8,7 @@
 <meta charset="ISO-8859-1">
 <title>Pagina dei risultati</title>
 <style type="text/css">
-	table, th, td {
+	table, th, td, div {
 	  border: 1px solid black;
 	}
 	
@@ -41,12 +41,14 @@
 					<td>
 						<a href="VisualizzaDettaglioServlet?idDaInviareComeParametro=<%=abitanteItem.getIdAbitante() %>">Dettaglio</a>
 						<a href="PreparaModificaServlet?idDaInviareComeParametro=<%=abitanteItem.getIdAbitante() %>">Modifica</a>
+						<a href="PreparaRimozioneServlet?idDaInviareComeParametro=<%=abitanteItem.getIdAbitante() %>">Elimina</a>
 					</td>
 				</tr>
 		<%	}%>
+		
+		<tr><td><a href="paginaInserimento.jsp">Nuovo</a></td></tr>
 	
 	</table>
-	
 	
 </body>
 </html>
