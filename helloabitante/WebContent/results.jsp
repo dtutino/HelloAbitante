@@ -1,4 +1,6 @@
+<%@page import="it.helloabitante.dao.MyDaoFactory"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="it.helloabitante.model.Abitante"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -6,49 +8,57 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
 <title>Pagina dei risultati</title>
-<style type="text/css">
-	table, th, td, div {
-	  border: 1px solid black;
-	}
-	
-	th, td {
-	  padding: 10px;
-	}
-	.center {
-		margin-left: auto;
-		margin-right: auto;
-	}
-</style>
 
 </head>
 <body>
-	<table class="center">
-		<thead>
-			<tr>
-				<th>Nome</th>
-				<th>Cognome</th>
-				<th>Azione</th>
-			</tr>
-		</thead>
 		
-		<% List<Abitante> listaDaServlet = (List<Abitante>)request.getAttribute("listAbitantiAttributeName");
+		<% if(request.getAttribute("messaggioDiConfermaModifica") != null){ %>
+		<p style="color: red;"><%=request.getAttribute("messaggioDiConfermaModifica") %></p>
+	<%  }else{ %>
+ 	<%}    %> 
+	
+	</table>
+	
+	<div class="container">
+	<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Nome</th>
+      <th scope="col">Cognome</th>
+      <th scope="col">Azioni</th>
+      <th scope="col"><a class="btn btn-success" href="paginaInserimento.jsp" role="button">Nuovo</a></th>
+    </tr>
+  </thead>
+  <tbody>
+		<% List<Abitante> listaDaServlet = new ArrayList<Abitante>();
+		if (request.getAttribute("listAbitantiAttributeName") != null) {
+				listaDaServlet = (List<Abitante>)request.getAttribute("listAbitantiAttributeName");
+		} else {
+			listaDaServlet = (List<Abitante>)MyDaoFactory.getAbitanteDAOInstance().list();
+		}
 							for(Abitante abitanteItem : listaDaServlet){
 				%>
 				<tr>
 					<td><%=abitanteItem.getNome() %></td>
 					<td><%=abitanteItem.getCognome() %></td>
 					<td>
-						<a href="VisualizzaDettaglioServlet?idDaInviareComeParametro=<%=abitanteItem.getIdAbitante() %>">Dettaglio</a>
-						<a href="PreparaModificaServlet?idDaInviareComeParametro=<%=abitanteItem.getIdAbitante() %>">Modifica</a>
-						<a href="PreparaRimozioneServlet?idDaInviareComeParametro=<%=abitanteItem.getIdAbitante() %>">Elimina</a>
+						<a class="btn btn-success" href="VisualizzaDettaglioServlet?idDaInviareComeParametro=<%=abitanteItem.getIdAbitante() %>" role="button">Dettaglio</a>
+						<a class="btn btn-primary" href="PreparaModificaServlet?idDaInviareComeParametro=<%=abitanteItem.getIdAbitante() %>" role="button">Modifica</a>
+						<a class="btn btn-danger" href="PreparaRimozioneServlet?idDaInviareComeParametro=<%=abitanteItem.getIdAbitante() %>" role="button">Elimina</a>
 					</td>
 				</tr>
 		<%	}%>
-		
-		<tr><td><a href="paginaInserimento.jsp">Nuovo</a></td></tr>
-	
-	</table>
-	
+  </tbody>
+</table>
+	</div>
 </body>
 </html>

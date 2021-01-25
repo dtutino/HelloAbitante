@@ -41,14 +41,18 @@ public class ConfermaModifica extends HttpServlet {
 		String etaDaPagina = request.getParameter("etaInput");
 		int etaDaInserire = Integer.parseInt(etaDaPagina);
 		String mottoDaPagina = request.getParameter("mottoInput");
-		
-		Abitante abitanteDaModificare = new Abitante(idInput, nomeDaPagina, cognomeDaPagina, codiceFiscaleDaPagina, etaDaInserire, mottoDaPagina);
-		
-		MyServiceFactory.getAbitanteServiceInstance().update(abitanteDaModificare);
+
+		Abitante abitanteDaModificare = new Abitante(idInput, nomeDaPagina, cognomeDaPagina, codiceFiscaleDaPagina,
+				etaDaInserire, mottoDaPagina);
+
+		String messaggioDaInviareAPagina = "L'abitante è stato modificato correttamente!";
+
+		request.setAttribute("messaggioDiConfermaModifica", messaggioDaInviareAPagina);
+
+		if (MyServiceFactory.getAbitanteServiceInstance().update(abitanteDaModificare) != 0) {
 		request.setAttribute("abitanteModificato", abitanteDaModificare);
-		
-		request.setAttribute("listAbitantiAttributeName",
-				MyServiceFactory.getAbitanteServiceInstance().list());
+		request.setAttribute("listAbitantiAttributeName", MyServiceFactory.getAbitanteServiceInstance().list());
+		}
 		
 		destinazione = "results.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(destinazione);

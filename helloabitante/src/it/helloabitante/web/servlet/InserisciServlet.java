@@ -32,9 +32,11 @@ public class InserisciServlet extends HttpServlet {
 		String cognomeDaPagina = request.getParameter("cognomeInput");
 		String codiceFiscaleDaPagina = request.getParameter("codiceFiscaleInput");
 		String etaDaPagina = request.getParameter("etaInput");
-		int etaDaInserire = Integer.parseInt(etaDaPagina);		
+		int etaDaInserire = 0;
+		if (etaDaPagina != "")
+			etaDaInserire = Integer.parseInt(etaDaPagina);		
 		String mottoDaPagina = request.getParameter("mottoInput");
-		Integer id = DB_Mock.LISTA_ABITANTI.size() + 1;
+		Integer id = MyServiceFactory.getAbitanteServiceInstance().list().size();
 		Long idDaInserire = id.longValue();
 		
 		if (nomeDaPagina.equals("") && cognomeDaPagina.equals("") && codiceFiscaleDaPagina.equals("")
